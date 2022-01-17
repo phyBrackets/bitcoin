@@ -18,7 +18,7 @@ static void RollingBloom(benchmark::Bench& bench)
         }
         filter.insert(data);
         
-        for(int i = 3; i >= 0; i++){
+        for(int i = 3; i >= 0; i--){
             data[i] = (count >> 8*(3-i)) & 0xFF;
         }
         filter.contains(data);
