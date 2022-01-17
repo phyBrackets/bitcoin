@@ -17,7 +17,6 @@ static void RollingBloom(benchmark::Bench& bench)
             data[i] = (count >> 8*i) & 0xFF;
         }
         filter.insert(data);
-        
         for(int i = 3; i >= 0; i--){
             data[i] = (count >> 8*(3-i)) & 0xFF;
         }
