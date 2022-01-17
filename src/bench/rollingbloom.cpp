@@ -13,16 +13,14 @@ static void RollingBloom(benchmark::Bench& bench)
     uint32_t count = 0;
     bench.run([&] {
         count++;
-        data[0] = count & 0xFF;
-        data[1] = (count >> 8) & 0xFF;
-        data[2] = (count >> 16) & 0xFF;
-        data[3] = (count >> 24) & 0xFF;
+        for(int i = 0; i <= 3; i++){
+            data[i] = (count >> 8*i) & OxFF;
+        }
         filter.insert(data);
-
-        data[0] = (count >> 24) & 0xFF;
-        data[1] = (count >> 16) & 0xFF;
-        data[2] = (count >> 8) & 0xFF;
-        data[3] = count & 0xFF;
+        
+        for(int i = 3; i >= 0; i++){
+            data[i] = (count >> 8*(3-i)) & 0xFF;
+        }
         filter.contains(data);
     });
 }
