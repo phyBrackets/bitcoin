@@ -188,7 +188,7 @@ task:
   name: '32-bit + dash [gui] [CentOS 8]'
   << : *GLOBAL_TASK_TEMPLATE
   container:
-    image: centos:8
+    image: quay.io/centos/centos:stream8
   env:
     << : *CIRRUS_EPHEMERAL_WORKER_TEMPLATE_ENV
     PACKAGE_MANAGER_INSTALL: "yum install -y"
@@ -277,7 +277,7 @@ task:
   container:
     image: ubuntu:focal
   env:
-    MACOS_SDK: "Xcode-12.1-12A7403-extracted-SDK-with-libcxx-headers"
+    MACOS_SDK: "Xcode-12.2-12B45b-extracted-SDK-with-libcxx-headers"
     << : *CIRRUS_EPHEMERAL_WORKER_TEMPLATE_ENV
     FILE_ENV: "./ci/test/00_setup_env_mac.sh"
 
