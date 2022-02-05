@@ -5,21 +5,20 @@
 
 #include <bench/bench.h>
 #include <common/bloom.h>
+#include <crypto/common.h>
 
 static void RollingBloom(benchmark::Bench& bench)
 {
     CRollingBloomFilter filter(120000, 0.000001);
     std::vector<unsigned char> data(32);
+    unsigned char* dataPtr = &data[0];
     uint32_t count = 0;
     bench.run([&] {
         count++;
-        for(int i = 0; i <= 3; i++){
-            data[i] = (count >> 8*i) & 0xFF;
-        }
+        WriteLE32(dataPtr, count);
         filter.insert(data);
-        for(int i = 3; i >= 0; i--){
-            data[i] = (count >> 8*(3-i)) & 0xFF;
-        }
+
+        WriteBE32(dataPtr, count);
         filter.contains(data);
     });
 }
